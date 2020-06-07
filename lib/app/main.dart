@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '减肥餐',
       theme: ThemeData(
+        primaryColor: Color(0xFF00AD53),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BottomNavigateWidget(),
@@ -48,12 +49,12 @@ class _BottomNavigateWidgetState extends State<BottomNavigateWidget> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                   icon: Image.asset(
-                    "resource/image/tab_home_def@3x.png",
+                    "resource/image/tab_home_def.png",
                     width: 20,
                     height: 20,
                   ),
                   activeIcon: Image.asset(
-                    "resource/image/tab_home@3x.png",
+                    "resource/image/tab_home.png",
                     width: 20,
                     height: 20,
                   ),
@@ -61,12 +62,12 @@ class _BottomNavigateWidgetState extends State<BottomNavigateWidget> {
                       padding: EdgeInsets.only(top: 5), child: Text('首页'))),
               BottomNavigationBarItem(
                   icon: Image.asset(
-                    'resource/image/tab_zx_def@3x.png',
+                    'resource/image/tab_zx_def.png',
                     width: 20,
                     height: 20,
                   ),
                   activeIcon: Image.asset(
-                    "resource/image/tab_zx@3x.png",
+                    "resource/image/tab_zx.png",
                     width: 20,
                     height: 20,
                   ),
@@ -74,12 +75,12 @@ class _BottomNavigateWidgetState extends State<BottomNavigateWidget> {
                       padding: EdgeInsets.only(top: 5), child: Text('资讯'))),
               BottomNavigationBarItem(
                   icon: Image.asset(
-                    'resource/image/tab_sc_def@3x.png',
+                    'resource/image/tab_sc_def.png',
                     width: 20,
                     height: 20,
                   ),
                   activeIcon: Image.asset(
-                    "resource/image/tab_sc@3x.png",
+                    "resource/image/tab_sc.png",
                     width: 20,
                     height: 20,
                   ),
