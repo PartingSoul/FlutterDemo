@@ -23,7 +23,13 @@ class _CollectListWidgetState extends State<CollectListWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemBuilder: (BuildContext context, int index) {
+          /*
+                TODO 考虑到这里 Cell 是信息流 Cell，数据会有变化
+                     应参考新闻页面的 Cell 写法独立出去
+                     并思考新闻页面关于 Cell 构建提出的问题
+            */
           return Padding(
+            /// TODO EdgeInsets.symmetric(vertical: 10) 这种写法也可
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Row(children: <Widget>[
                 ClipRRect(
@@ -70,6 +76,7 @@ class _CollectListWidgetState extends State<CollectListWidget> {
         },
         itemCount: 20,
         itemExtent: 120,
+        /// TODO EdgeInsets.symmetric(vertical: 10, horizontal: 20) 这种写法也可
         padding: EdgeInsets.fromLTRB(20, 10, 20, 10));
   }
 }

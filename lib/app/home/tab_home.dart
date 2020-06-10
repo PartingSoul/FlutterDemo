@@ -73,6 +73,11 @@ Widget buildHomeWidget(BuildContext context) {
       child: ListView.builder(
           padding: EdgeInsets.only(top: 16),
           itemBuilder: (BuildContext context, int index) {
+            /*
+                TODO 考虑到这里 Cell 是信息流 Cell，数据会有变化
+                     应参考新闻页面的 Cell 写法独立出去
+                     并思考新闻页面关于 Cell 构建提出的问题
+            */
             return Padding(
                 padding: EdgeInsets.only(left: 20, right: 20, bottom: 16),
                 child: ClipRRect(
@@ -124,6 +129,11 @@ Widget buildHomeWidget(BuildContext context) {
           itemCount: 30));
 }
 
+/*
+ TODO 1. 下述类没有必要写成 StatefulWidget
+      2. 进一步思考利用构造函数传值
+      以上两点下一次会说怎么做，可以先思考
+*/
 class CollectedWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _CollectedWidgetState();

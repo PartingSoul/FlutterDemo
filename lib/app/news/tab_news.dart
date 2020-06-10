@@ -18,16 +18,24 @@ class _TabNewWidgetState extends State<TabNewWidget> {
                   : OnePicNewsItemWidget();
             },
             separatorBuilder: (BuildContext context, int index) {
+              /// TODO Divider 的 height 有一个默认高度为 16 需要注意
               return Divider(
+                  height: null,
                   thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
+                  /// TODO 上面已经设置过左右间距了
+                  //indent: 20,
+                  //endIndent: 20,
                   color: Color(0xFFF5F5F5));
             },
             itemCount: 40));
   }
 }
 
+/*
+ TODO 1. 以下两个 Cell 没有必要写成 StatefulWidget
+      2. 进一步思考利用构造函数传值
+      以上两点下一次会说怎么做，可以先思考
+*/
 class OnePicNewsItemWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _OnePicNewsItemWidgetState();

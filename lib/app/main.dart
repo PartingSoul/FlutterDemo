@@ -8,6 +8,11 @@ void main() {
   runApp(MyApp());
 }
 
+/*
+ TODO 以下类都写直接在 main.dart 中通性不强建议新建文件
+      此建议仅供参考
+*/
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
