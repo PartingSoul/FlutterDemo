@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class ScreenUtils {
@@ -6,4 +8,8 @@ class ScreenUtils {
 
   static double getScreenHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
+  static double getStatusBarHeight() {
+    return MediaQueryData.fromWindow(window).padding.top;
+  }
 }
