@@ -8,6 +8,7 @@ import 'package:flutter_jianfeican/base/utils/dimens.dart';
 import 'package:flutter_jianfeican/base/utils/image_path_helper.dart';
 import 'package:flutter_jianfeican/base/utils/screen_utils.dart';
 
+/// TODO 补充背景图动态化效果
 /// 菜谱详情
 class RecipeDetailsPage extends StatefulWidget {
   final String _recipeId;
@@ -16,6 +17,7 @@ class RecipeDetailsPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+    /// TODO 不必要步骤
     return _RecipeDetailsPageState(_recipeId);
   }
 
