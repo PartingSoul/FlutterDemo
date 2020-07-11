@@ -3,9 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_jianfeican/app/home/model/bean/menu_cate_bean.dart';
 import 'package:flutter_jianfeican/app/home/search/search_page.dart';
+import 'package:flutter_jianfeican/base/http/http_helper.dart';
+import 'package:flutter_jianfeican/base/utils/color_utils.dart';
 import 'package:flutter_jianfeican/base/utils/image_path_helper.dart';
 import 'package:flutter_jianfeican/base/utils/string_utils.dart';
 
+import 'model/bean/home_bean.dart';
 import 'model/bean/recipe_bean.dart';
 import 'recipe_details/recipe_details_page.dart';
 
@@ -17,12 +20,12 @@ class TabHomeWidget extends StatefulWidget {
 
 class _TabHomeWidgetState extends State<TabHomeWidget> {
   final List<MenuCateBean> mMenuCateItemLists = [
-    MenuCateBean('12121', '减脂健身', ImagePath.wrap('home_js')),
-    MenuCateBean('12122', '美容养颜', ImagePath.wrap('home_my')),
-    MenuCateBean('12123', '营养素食', ImagePath.wrap('home_ss')),
+    MenuCateBean('257354379', '减脂健身', ImagePath.wrap('home_js')),
+    MenuCateBean('257354375', '美容养颜', ImagePath.wrap('home_my')),
+    MenuCateBean('257352874', '营养素食', ImagePath.wrap('home_ss')),
   ];
 
-  List<Recipe> mRecipeLists;
+  List<Recipe> mRecipeLists = [];
 
   @override
   void initState() {
@@ -96,19 +99,11 @@ class _TabHomeWidgetState extends State<TabHomeWidget> {
               SliverChildBuilderDelegate((BuildContext context, int index) {
             return HomeRecipeItemWidget(mRecipeLists[index], index,
                 _onCollectStateChange, _onItemClick);
-          }, childCount: 30),
+          }, childCount: mRecipeLists.length),
           itemExtent: 335,
         )
       ],
     ));
-  }
-
-  /// 获取菜谱数据
-  void getRecipeData() {
-    mRecipeLists = [];
-    for (int i = 0; i < 30; i++) {
-      mRecipeLists.add(Recipe.name('$i', "菜谱$i"));
-    }
   }
 
   /// 收藏状态 发生改变
@@ -127,6 +122,16 @@ class _TabHomeWidgetState extends State<TabHomeWidget> {
       return;
     }
     RecipeDetailsPage.start(context, recipe.id);
+  }
+
+  /// 获取菜谱数据
+  void getRecipeData() async {
+    BaseHttpResponse response = await httpRequest.getRequest(
+        GetContentsBySubClassId,
+        data: {"id": "257352874", "page": "0"});
+    HomeBean bean = HomeBean.fromMap(response.responseJson);
+    mRecipeLists = bean.list;
+    setState(() {});
   }
 }
 
@@ -169,14 +174,19 @@ class HomeRecipeItemWidget extends StatelessWidget {
                 child: Stack(children: <Widget>[
                   ConstrainedBox(
                       constraints: BoxConstraints.expand(),
-                      child: Image.asset(ImagePath.wrap('home_pic1'),
+                      child: Image.network(getNetImagePath(_recipe.imageid),
                           fit: BoxFit.cover)),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: ColorUtils.parse("#000000", opacityRadio: 0.2)),
+                  ),
                   Padding(
                       padding: EdgeInsets.only(left: 20, top: 24, right: 20),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "美味营养成功率高的一道家…美味营养成功率高的一道家…美味营养成功率高的一道家…",
+                            _recipe.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -189,15 +199,16 @@ class HomeRecipeItemWidget extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   ClipOval(
-                                      child: Image.asset(
-                                          ImagePath.wrap("zx_pic8"),
+                                      child: Image.network(
+                                          getNetImagePath(
+                                              _recipe.user?.imageid),
                                           width: 28,
                                           height: 28,
                                           fit: BoxFit.cover)),
                                   Padding(
                                       padding: EdgeInsets.only(left: 8),
                                       child: Text(
-                                        "小圆食记",
+                                        _recipe.user.nickname,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
@@ -214,7 +225,7 @@ class HomeRecipeItemWidget extends StatelessWidget {
                         index: _index,
                         isCollected: _recipe.isCollected,
                         onClick: _onCollectWidgetClick,
-                      ))
+                      )),
                 ]))));
   }
 }

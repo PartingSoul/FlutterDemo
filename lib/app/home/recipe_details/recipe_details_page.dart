@@ -53,10 +53,11 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   /// 获取数据
   void getRecipeDetailsInfo() {
     // 当前菜谱
-    Recipe recipe = Recipe.name(_recipeId, "手残党也能做出的美味");
-    recipe.likeNum = 21;
-    recipe.collectNum = 121;
-    recipe.recipeImageId = "121";
+    Recipe recipe = Recipe.name("手残党也能做出的美味");
+    recipe.infos = InfosBean();
+    recipe.infos.likeCount = 21;
+    recipe.infos.collectionCount = 121;
+    recipe.id = "121";
 
     //当前材料
     List<Materials> material = [];
@@ -77,7 +78,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     // 添加尾部
     List<Recipe> relativeRecipes = [];
     for (int i = 0; i < 15; i++) {
-      relativeRecipes.add(Recipe.name("$i", "菜谱名称$i"));
+      relativeRecipes.add(Recipe.name("菜谱名称$i"));
     }
     mDetailsLists.add(RecipeDetailMainBean.footerData(relativeRecipes));
   }
@@ -169,7 +170,7 @@ class RecipeRecipeWidget extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16), topRight: Radius.circular(16)),
           child: Container(
-              color: Colors.white,
+              decoration: BoxDecoration(color: Colors.white),
               child: Padding(
                   padding: EdgeInsets.fromLTRB(DIM_20, 14, DIM_20, 6),
                   child: Column(
@@ -187,7 +188,7 @@ class RecipeRecipeWidget extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(2)))))),
                       Text(
-                        currentRecipe.recipeName,
+                        currentRecipe.name,
                         style: TextStyle(
                             color: ColorUtils.parse("#1E192F"),
                             fontSize: 24,
@@ -196,7 +197,7 @@ class RecipeRecipeWidget extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(top: 6),
                           child: Text(
-                              "已有人${currentRecipe.likeNum}点赞 ${currentRecipe.collectNum}人收藏",
+                              "已有人${currentRecipe.infos?.likeCount}点赞 ${currentRecipe.infos?.collectionCount}人收藏",
                               style: TextStyle(
                                   color: ColorUtils.parse("#C2BFCF"),
                                   fontSize: 12))),
@@ -273,7 +274,8 @@ class RecipeRecipeWidget extends StatelessWidget {
   /// 尾部
   Widget _buildFooterWidget(List<Recipe> relativeRecipes) {
     return Container(
-        color: Colors.white,
+        decoration: BoxDecoration(color: Colors.white),
+        margin: EdgeInsets.all(0),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -311,7 +313,7 @@ class RecipeRecipeWidget extends StatelessWidget {
   /// 步骤
   Widget _buildItemWidget(BuildContext context, Step step) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(color: Colors.white),
       padding: EdgeInsets.fromLTRB(DIM_20, 12, DIM_20, 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
